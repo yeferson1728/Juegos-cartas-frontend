@@ -1,0 +1,63 @@
+<div class="login-page">
+  <!-- LADO IZQUIERDO (BRANDING) -->
+  <div class="hero">
+    <div class="brand">
+      <img class="logo" src="/icono.png" alt="Relancina logo" />
+      <span class="title">RELANCINA</span>
+    </div>
+
+    <div class="big-number">21</div>
+    <p class="subtitle">THE ULTIMATE DEALER CHALLENGE</p>
+    <div class="card-symbols">
+      <span class="spade">♠</span>
+      <span class="heart">♥</span>
+      <span class="diamond">♦</span>
+      <span class="club">♣</span>
+    </div>
+  </div>
+  <div class="mobile-hero">
+    <div class="brand">
+      <img class="logo" src="/icono.png" alt="Relancina logo" />
+      <span class="title">RELANCINA</span>
+    </div>
+
+    <div class="big-number">21</div>
+
+    <p class="subtitle">THE ULTIMATE DEALER CHALLENGE</p>
+
+    <div class="card-symbols">
+      <span class="spade">♠</span>
+      <span class="heart">♥</span>
+      <span class="diamond">♦</span>
+      <span class="club">♣</span>
+    </div>
+  </div>
+
+  <!-- LADO DERECHO (FORM) -->
+  <div class="login-card">
+    <h2>¿Listo para jugar?</h2>
+    <p class="hint">Ingresa para acceder a la mesa</p>
+
+    <form>
+      
+      <label>Email</label>
+      <input type="email" placeholder="nombre@ejemplo.com" />
+
+      <label>Contraseña</label>
+      <input type="password" placeholder="••••••••" />
+
+      <button type="button" class="btn" (click)="goToLobby()">Entrar →</button>
+
+      <button type="button" class="btn btn-secondary" routerLink="/register">Registrarse</button>
+
+      <div class="divider">
+        <span class="o">O</span>
+      </div>
+
+      <button type="button" class="btn google-btn">
+        <img src="/google-icon.svg" alt="Google" />
+        Continuar con Google
+      </button>
+    </form>
+  </div>
+</div>

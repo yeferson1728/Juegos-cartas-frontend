@@ -1,0 +1,43 @@
+<div class="game-page">
+  <div class="table">
+    <!-- 🏠 CASA -->
+    <div class="seat house">
+      <div class="player">
+        <span class="name">🏠 {{ house.name }}</span>
+      </div>
+
+      <div class="cards">
+        <div class="card back"></div>
+        <div class="card"></div>
+      </div>
+    </div>
+
+    <!-- 👥 OTROS JUGADORES -->
+    <div
+      class="seat other"
+      *ngFor="let p of others; let i = index"
+      [ngStyle]="getOtherStyle(i, others.length)"
+    >
+      <div class="player">
+        <span class="name">{{ p.name }}</span>
+      </div>
+
+      <div class="cards">
+        <div class="card"></div>
+        <div class="card"></div>
+      </div>
+    </div>
+
+    <!-- 👤 TÚ -->
+    <div class="seat you active">
+      <div class="player">
+        <span class="name">{{ you.name }}</span>
+      </div>
+
+      <div class="cards">
+        <div class="card"></div>
+        <div class="card"></div>
+      </div>
+    </div>
+  </div>
+</div>

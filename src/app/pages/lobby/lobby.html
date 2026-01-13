@@ -1,0 +1,26 @@
+<div class="lobby-page">
+  <div class="lobby-glow"></div>
+
+  <div class="lobby-card">
+    <h1>Lobby</h1>
+    <p class="subtitle">Esperando jugadores…</p>
+
+    <div class="players">
+      <div
+        class="player"
+        *ngFor="let p of players; let i = index"
+        [style.animationDelay]="i * 0.1 + 's'"
+      >
+        <span class="name">
+          👤 {{ p.name }}
+          <span *ngIf="p.isHouse" class="house">🏠 Casa</span>
+        </span>
+        <span class="credits">{{ p.credits | number }} créditos</span>
+      </div>
+    </div>
+
+    <button class="start-btn">Iniciar partida</button>
+
+    <span class="hint"> 🃏 La partida comenzará cuando todos estén listos </span>
+  </div>
+</div>
