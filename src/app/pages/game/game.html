@@ -1,43 +1,42 @@
 <div class="game-page">
+
+  <!-- HEADER -->
+  <header class="game-header">
+    <span>Mesa • Apuesta 500</span>
+    <span class="credits">💰 10,000</span>
+  </header>
+
+  <!-- MESA -->
   <div class="table">
-    <!-- 🏠 CASA -->
-    <div class="seat house">
-      <div class="player">
-        <span class="name">🏠 {{ house.name }}</span>
-      </div>
 
+    <!-- CASA -->
+    <div class="player house">
+      <div class="name">🏠 Casa</div>
       <div class="cards">
-        <div class="card back"></div>
-        <div class="card"></div>
+        <div class="card" *ngFor="let c of [1,2]"></div>
       </div>
     </div>
 
-    <!-- 👥 OTROS JUGADORES -->
-    <div
-      class="seat other"
-      *ngFor="let p of others; let i = index"
-      [ngStyle]="getOtherStyle(i, others.length)"
-    >
-      <div class="player">
-        <span class="name">{{ p.name }}</span>
-      </div>
+    <!-- JUGADORES -->
+    <div class="players">
+      <ng-container *ngFor="let p of players">
+        <div class="player" *ngIf="!p.isHouse" [class.you]="p.isYou">
+          <div class="name">{{ p.name }}</div>
 
-      <div class="cards">
-        <div class="card"></div>
-        <div class="card"></div>
-      </div>
+          <div class="cards">
+            <div class="card" *ngFor="let c of [].constructor(p.cards)"></div>
+          </div>
+        </div>
+      </ng-container>
     </div>
 
-    <!-- 👤 TÚ -->
-    <div class="seat you active">
-      <div class="player">
-        <span class="name">{{ you.name }}</span>
-      </div>
-
-      <div class="cards">
-        <div class="card"></div>
-        <div class="card"></div>
-      </div>
-    </div>
   </div>
+
+  <!-- ACCIONES -->
+  <footer class="actions">
+    <button>Pedir carta</button>
+    <button class="secondary">Quedarse</button>
+  </footer>
+
 </div>
+

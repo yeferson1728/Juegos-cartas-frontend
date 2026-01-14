@@ -111,7 +111,12 @@ input:focus {
   content: '';
   flex: 1;
   height: 1px;
-  background: rgba(255, 47, 163, 0.6);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 47, 163, 0),
+    rgba(255, 47, 163, 0.9),
+    rgba(255, 47, 163, 0)
+  );
 }
 
 .divider span {

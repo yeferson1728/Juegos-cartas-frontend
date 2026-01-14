@@ -1,26 +1,118 @@
 <div class="lobby-page">
-  <div class="lobby-glow"></div>
+  <!-- HEADER -->
+  <header class="lobby-header">
+    <div class="brand">
+      <img src="/icono.png" alt="Relancina logo" class="logo" />
+      <span class="title">RELANCINA</span>
+    </div>
 
-  <div class="lobby-card">
-    <h1>Lobby</h1>
-    <p class="subtitle">Esperando jugadores…</p>
+    <div class="player-status">
+      <span class="online">🟢 En línea</span>
+      <span class="rank">♠ Dealer Novato</span>
+    </div>
 
-    <div class="players">
+    <div class="credits">💰 {{ credits | number }} créditos</div>
+  </header>
+
+  <!-- MESAS -->
+  <section class="tables">
+    <h2>Mesas disponibles</h2>
+
+    <!-- FILTROS (solo visual por ahora) -->
+    <div class="filters">
+      <button>Casual</button>
+      <button>Media</button>
+      <button>Pro</button>
+    </div>
+
+    <!-- GRID DE MESAS -->
+    <div class="table-grid">
       <div
-        class="player"
-        *ngFor="let p of players; let i = index"
-        [style.animationDelay]="i * 0.1 + 's'"
+        class="table-card"
+        *ngFor="let table of tables"
+        [class.casual]="table.bet <= 200"
+        [class.pro]="table.bet >= 2000"
+        [ngStyle]="{
+          '--fill': table.players / table.maxPlayers
+        }"
       >
-        <span class="name">
-          👤 {{ p.name }}
-          <span *ngIf="p.isHouse" class="house">🏠 Casa</span>
-        </span>
-        <span class="credits">{{ p.credits | number }} créditos</span>
+        <!-- TÍTULO + ESTADO -->
+        <div class="table-header">
+          <h3>{{ table.name }}</h3>
+
+          <span class="status" [class.full]="table.players === table.maxPlayers">
+            {{ table.players === table.maxPlayers ? 'Llena' : 'Disponible' }}
+          </span>
+        </div>
+
+        <p class="bet">
+          Apuesta mínima: <strong>{{ table.bet }}</strong>
+        </p>
+
+        <p class="players">👥 {{ table.players }} / {{ table.maxPlayers }}</p>
+
+        <p class="activity">🕒 Activa hace 2 min</p>
+
+        <button (click)="joinTable(table.id)" [disabled]="table.players === table.maxPlayers">
+          Entrar →
+        </button>
       </div>
     </div>
 
-    <button class="start-btn">Iniciar partida</button>
+    <!-- ESTADO VACÍO -->
+    <div class="empty-state" *ngIf="tables.length === 0">
+      <p>No hay mesas activas</p>
+      <button class="create-btn" (click)="openCreateModal()">Crear la primera mesa</button>
+    </div>
 
-    <span class="hint"> 🃏 La partida comenzará cuando todos estén listos </span>
+    <!-- CTA -->
+    <button class="create-btn" (click)="openCreateModal()">+ Crear mesa</button>
+  </section>
+</div>
+<!-- MODAL CREAR MESA -->
+<div class="modal-backdrop" *ngIf="showCreateModal">
+  <div class="modal-card">
+    <h2>Crear mesa</h2>
+
+    <label>Tipo de mesa</label>
+    <div class="toggle">
+      <button [class.active]="tableType === 'public'" (click)="tableType = 'public'">
+        Pública
+      </button>
+      <button [class.active]="tableType === 'private'" (click)="tableType = 'private'">
+        Privada
+      </button>
+    </div>
+
+    <label>Apuesta mínima</label>
+    <label>Apuesta mínima</label>
+    <div class="bet-selector">
+      <button *ngFor="let b of bets" [class.active]="selectedBet === b" (click)="selectedBet = b">
+        {{ b }}
+      </button>
+    </div>
+
+    <label>Máx jugadores</label>
+    <select>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+
+    <!-- SOLO PRIVADA -->
+    <div class="private-box" *ngIf="tableType === 'private'">
+      <p class="hint">Invita amigos con este código</p>
+
+      <div class="invite-code">
+        <span>{{ inviteCode }}</span>
+        <button class="copy-btn" (click)="copyCode()" title="Copiar">📋</button>
+      </div>
+
+      <div class="modal-actions">
+        <button class="secondary" (click)="closeModal()">Cancelar</button>
+        <button (click)="confirmCreate()">Crear mesa</button>
+      </div>
+    </div>
   </div>
 </div>
+<div class="toast" *ngIf="showToast">📋 Código copiado</div>
